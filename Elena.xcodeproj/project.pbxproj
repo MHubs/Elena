@@ -15,6 +15,7 @@
 		D06B0D022533A18B0090AA23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D06B0D002533A18B0090AA23 /* LaunchScreen.storyboard */; };
 		D06B0D0D2533A18C0090AA23 /* ElenaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B0D0C2533A18C0090AA23 /* ElenaTests.swift */; };
 		D06B0D182533A18C0090AA23 /* ElenaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B0D172533A18C0090AA23 /* ElenaUITests.swift */; };
+		D08A0801253692E7002BA966 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08A0800253692E7002BA966 /* SettingsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		D06B0D132533A18C0090AA23 /* ElenaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElenaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06B0D172533A18C0090AA23 /* ElenaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElenaUITests.swift; sourceTree = "<group>"; };
 		D06B0D192533A18C0090AA23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D08A0800253692E7002BA966 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				D06B0CFE2533A18B0090AA23 /* Assets.xcassets */,
 				D06B0D002533A18B0090AA23 /* LaunchScreen.storyboard */,
 				D06B0D032533A18B0090AA23 /* Info.plist */,
+				D08A0800253692E7002BA966 /* SettingsController.swift */,
 			);
 			path = Elena;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D08A0801253692E7002BA966 /* SettingsController.swift in Sources */,
 				D06B0CFA2533A1890090AA23 /* ViewController.swift in Sources */,
 				D06B0CF62533A1890090AA23 /* AppDelegate.swift in Sources */,
 				D06B0CF82533A1890090AA23 /* SceneDelegate.swift in Sources */,

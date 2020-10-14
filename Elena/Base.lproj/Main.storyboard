@@ -17,6 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1Bs-uB-QEI">
+                                <rect key="frame" x="0.0" y="-22" width="414" height="842"/>
+                            </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYL-TC-R7Z">
                                 <rect key="frame" x="0.0" y="721" width="414" height="421"/>
                                 <subviews>
@@ -136,6 +139,9 @@
                                 <state key="normal">
                                     <imageReference key="image" image="gearshape.fill" catalog="system" symbolScale="large"/>
                                 </state>
+                                <connections>
+                                    <action selector="onSettingsTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rZB-nf-Xg2"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXj-i6-uhF">
                                 <rect key="frame" x="41.5" y="116" width="33" height="33"/>
@@ -152,9 +158,6 @@
                                     <segue destination="hz6-93-m8m" kind="presentation" id="J6M-NG-5t8"/>
                                 </connections>
                             </button>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1Bs-uB-QEI">
-                                <rect key="frame" x="0.0" y="-22" width="414" height="842"/>
-                            </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -188,6 +191,7 @@
                         <outlet property="savedRoutesButton" destination="IXj-i6-uhF" id="YtA-zS-diY"/>
                         <outlet property="searchField" destination="74H-VL-gi6" id="wfm-aX-zoy"/>
                         <outlet property="settingsButton" destination="Woo-sM-NRo" id="TDN-xs-ES1"/>
+                        <segue destination="g2H-qR-esg" kind="presentation" identifier="toSettings" id="Lvq-1q-8y1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -430,9 +434,9 @@
         <!--Settings-->
         <scene sceneID="tyt-re-hpy">
             <objects>
-                <viewController title="Settings" id="g2H-qR-esg" sceneMemberID="viewController">
+                <viewController title="Settings" id="g2H-qR-esg" customClass="SettingsController" customModule="Elena" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3zm-yA-u8d">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e1g-YW-4f7">
@@ -440,7 +444,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Settings" id="jbe-49-KnY">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" image="arrow.backward" catalog="system" id="4GC-q3-11J"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Back" image="arrow.backward" catalog="system" id="4GC-q3-11J">
+                                            <connections>
+                                                <action selector="onBackTap:" destination="g2H-qR-esg" id="Ejy-mG-GYd"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -498,7 +506,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="wordWrap" numberOfLines="16" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LhC-bk-UjH">
                                 <rect key="frame" x="41" y="380" width="333" height="222"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque cursus felis odio, id varius lectus eleifend nec. Nunc dapibus sapien non maximus convallis. Cras arcu lectus, consectetur et leo id, tincidunt tristique diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. Nulla eu lacus rhoncus dui porttitor venenatis. Aliquam at ante volutpat, venenatis mi vitae, eleifend dui. Donec consectetur, felis ac tempus varius, elit lectus pellentesque justo, sed malesuada augue sapien eu tellus.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque cursus felis odio, id varius lectus eleifend nec. Nunc dapibus sapien non maximus convallis. Cras arcu lectus, consectetur et leo id, tincidunt tristique diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. Nulla eu lacus rhoncus dui porttitor venenatis. Aliquam at ante volutpat, venenatis mi vitae, eleifend dui. Donec consectetur, felis ac tempus varius, elit lectus pellentesque justo, sed malesuada augue sapien eu tellus.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

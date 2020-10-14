@@ -50,6 +50,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         searchField.delegate = self
     }
     
+    
+    @IBAction func onSettingsTap(_ sender: UIButton) {
+        performSegue(withIdentifier: "toSettings", sender: self)
+    }
+    
+    
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Called when route button is pressed
         textField.resignFirstResponder()
