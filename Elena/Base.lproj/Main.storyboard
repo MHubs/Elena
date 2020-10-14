@@ -17,9 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1Bs-uB-QEI">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                            </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYL-TC-R7Z">
                                 <rect key="frame" x="0.0" y="721" width="414" height="421"/>
                                 <subviews>
@@ -155,6 +152,9 @@
                                     <segue destination="hz6-93-m8m" kind="presentation" id="J6M-NG-5t8"/>
                                 </connections>
                             </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1Bs-uB-QEI">
+                                <rect key="frame" x="0.0" y="-22" width="414" height="842"/>
+                            </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -178,6 +178,7 @@
                             <constraint firstItem="74H-VL-gi6" firstAttribute="width" secondItem="1Bs-uB-QEI" secondAttribute="width" multiplier="0.8" id="ze9-tY-5ei"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="4Uj-0B-Dtv"/>
                     <connections>
                         <outlet property="bottomShelf" destination="pYL-TC-R7Z" id="YvR-Q7-CYp"/>
                         <outlet property="distanceLabel" destination="VKK-mf-CkL" id="bKv-Us-2Vg"/>
@@ -224,7 +225,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="381" height="74"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGC-hb-XP4">
-                                                <rect key="frame" x="8" y="9" width="143" height="22.5"/>
+                                                <rect key="frame" x="8" y="6" width="156.5" height="24"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="778 N Pleasant St">
                                                         <attributes>
@@ -236,7 +237,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jzH-aZ-STi">
-                                                <rect key="frame" x="8" y="31.5" width="165" height="22.5"/>
+                                                <rect key="frame" x="8" y="30" width="175.5" height="24"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Amherst, MA 01003">
                                                         <attributes>
@@ -269,7 +270,7 @@
                                         <rect key="frame" x="0.0" y="94" width="381" height="74"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qK5-AL-EfR">
-                                                <rect key="frame" x="8" y="8" width="106.5" height="22.5"/>
+                                                <rect key="frame" x="8" y="8" width="112" height="24"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="1 Timberlane">
                                                         <attributes>
@@ -281,7 +282,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TnD-Fn-dLa">
-                                                <rect key="frame" x="8" y="30.5" width="174" height="22.5"/>
+                                                <rect key="frame" x="8" y="32" width="187" height="24"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Plymouth, MA 02360">
                                                         <attributes>
@@ -314,7 +315,7 @@
                                         <rect key="frame" x="0.0" y="188" width="381" height="74"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k27-FW-5Nj">
-                                                <rect key="frame" x="8" y="8" width="216.5" height="22.5"/>
+                                                <rect key="frame" x="8" y="8" width="233.5" height="24"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="1600 Pennsylvania Avenue">
                                                         <attributes>
@@ -326,7 +327,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZl-ea-p2b">
-                                                <rect key="frame" x="8" y="30.5" width="188" height="22.5"/>
+                                                <rect key="frame" x="8" y="32" width="205.5" height="24"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Washington, DC 20500">
                                                         <attributes>
@@ -359,7 +360,7 @@
                                         <rect key="frame" x="0.0" y="282" width="381" height="74"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCE-fc-uak">
-                                                <rect key="frame" x="8" y="9" width="101" height="22.5"/>
+                                                <rect key="frame" x="8" y="6" width="105.5" height="24"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="12 N East St">
                                                         <attributes>
@@ -371,7 +372,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPE-dF-ORu">
-                                                <rect key="frame" x="8" y="31.5" width="165" height="22.5"/>
+                                                <rect key="frame" x="8" y="30" width="174.5" height="24"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="Amherst, MA 01002">
                                                         <attributes>
@@ -424,7 +425,93 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Zj-cE-543" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="989.85507246376824" y="87.723214285714278"/>
+            <point key="canvasLocation" x="1136" y="-352"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="tyt-re-hpy">
+            <objects>
+                <viewController title="Settings" id="g2H-qR-esg" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3zm-yA-u8d">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e1g-YW-4f7">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Settings" id="jbe-49-KnY">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" image="arrow.backward" catalog="system" id="4GC-q3-11J"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance Units" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="diM-pz-GFM">
+                                <rect key="frame" x="41" y="92" width="135" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c9P-Bi-JPw">
+                                <rect key="frame" x="299" y="92" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Htx-09-snJ">
+                                <rect key="frame" x="266" y="96" width="25" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="mi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fin-UU-Xjf">
+                                <rect key="frame" x="354" y="96" width="20" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance Tolerance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gb4-6j-4Hd">
+                                <rect key="frame" x="41" y="161" width="164" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="35" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="ds6-h5-L0F">
+                                <rect key="frame" x="39" y="200" width="337" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYC-0s-3QJ">
+                                <rect key="frame" x="41" y="237" width="333" height="74"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Distance Tolerance allows you to set a percentage that you can be within the shortest path possible, allowing you to find paths that may not change as drastically in elevation.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5f4-DT-iFP">
+                                <rect key="frame" x="41" y="341" width="164" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="wordWrap" numberOfLines="16" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LhC-bk-UjH">
+                                <rect key="frame" x="41" y="380" width="333" height="222"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque cursus felis odio, id varius lectus eleifend nec. Nunc dapibus sapien non maximus convallis. Cras arcu lectus, consectetur et leo id, tincidunt tristique diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hac habitasse platea dictumst. Nulla eu lacus rhoncus dui porttitor venenatis. Aliquam at ante volutpat, venenatis mi vitae, eleifend dui. Donec consectetur, felis ac tempus varius, elit lectus pellentesque justo, sed malesuada augue sapien eu tellus.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="paP-82-7mt"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="3eP-kn-gI0"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5kr-pd-VYw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1134.7826086956522" y="395.75892857142856"/>
         </scene>
     </scenes>
     <resources>
