@@ -51,6 +51,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         // initialize location services
 
         // Ask for permission for use in foreground
+        self.locationManager.requestAlwaysAuthorization() 
         self.locationManager.requestWhenInUseAuthorization()
 
         if CLLocationManager.locationServicesEnabled() {
