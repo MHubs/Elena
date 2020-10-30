@@ -14,14 +14,14 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Elena" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1Bs-uB-QEI">
                                 <rect key="frame" x="0.0" y="-22" width="414" height="842"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYL-TC-R7Z">
-                                <rect key="frame" x="0.0" y="721" width="414" height="421"/>
+                                <rect key="frame" x="0.0" y="748" width="414" height="448"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route Statistics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Omf-Ss-Gxa">
                                         <rect key="frame" x="42" y="8" width="149" height="24"/>
@@ -30,7 +30,7 @@
                                         <color key="highlightedColor" systemColor="labelColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WFZ-0l-ou6">
-                                        <rect key="frame" x="0.0" y="32" width="138" height="84"/>
+                                        <rect key="frame" x="0.0" y="32" width="138" height="89.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.4 mi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKK-mf-CkL">
                                                 <rect key="frame" x="42" y="20" width="54" height="24"/>
@@ -54,7 +54,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4OD-MQ-0mC">
-                                        <rect key="frame" x="138" y="32" width="138" height="84"/>
+                                        <rect key="frame" x="138" y="32" width="138" height="89.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.3 m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IsU-3Y-vfB">
                                                 <rect key="frame" x="46" y="20" width="46.5" height="24"/>
@@ -76,7 +76,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1UY-rT-Y3Q">
-                                        <rect key="frame" x="276" y="32" width="138" height="84"/>
+                                        <rect key="frame" x="276" y="32" width="138" height="89.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="47 m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yFS-It-acm">
                                                 <rect key="frame" x="46.5" y="20" width="44.5" height="24"/>
@@ -122,14 +122,14 @@
                                 </constraints>
                             </view>
                             <textField opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="74H-VL-gi6">
-                                <rect key="frame" x="41.5" y="20" width="331" height="34"/>
+                                <rect key="frame" x="41.5" y="64" width="331" height="34"/>
                                 <color key="backgroundColor" systemColor="systemGrayColor"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="route" enablesReturnKeyAutomatically="YES" textContentType="location"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Woo-sM-NRo">
-                                <rect key="frame" x="41.5" y="68" width="33" height="33"/>
+                                <rect key="frame" x="41.5" y="112" width="33" height="33"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Woo-sM-NRo" secondAttribute="height" multiplier="1:1" id="5v0-uD-vFU"/>
@@ -144,7 +144,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXj-i6-uhF">
-                                <rect key="frame" x="41.5" y="116" width="33" height="33"/>
+                                <rect key="frame" x="41.5" y="160" width="33" height="33"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="IXj-i6-uhF" secondAttribute="height" multiplier="1:1" id="hFy-yQ-OIz"/>
@@ -155,7 +155,7 @@
                                     <imageReference key="image" image="mappin.and.ellipse" catalog="system" symbolScale="large"/>
                                 </state>
                                 <connections>
-                                    <segue destination="hz6-93-m8m" kind="presentation" id="J6M-NG-5t8"/>
+                                    <action selector="onSavedTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xIX-IL-WRH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -192,6 +192,7 @@
                         <outlet property="searchField" destination="74H-VL-gi6" id="wfm-aX-zoy"/>
                         <outlet property="settingsButton" destination="Woo-sM-NRo" id="TDN-xs-ES1"/>
                         <segue destination="g2H-qR-esg" kind="presentation" identifier="toSettings" id="Lvq-1q-8y1"/>
+                        <segue destination="hz6-93-m8m" kind="presentation" identifier="toSavedRoutes" id="qf2-Mq-9KC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -201,7 +202,7 @@
         <!--Saved Routes-->
         <scene sceneID="bEb-D7-rnA">
             <objects>
-                <viewController title="Saved Routes" id="hz6-93-m8m" sceneMemberID="viewController">
+                <viewController title="Saved Routes" id="hz6-93-m8m" customClass="SavedRoutesController" customModule="Elena" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T9S-fa-1a7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -212,7 +213,7 @@
                                     <navigationItem title="Saved Routes" id="x6w-6v-4oY">
                                         <barButtonItem key="leftBarButtonItem" title="Back" image="arrow.backward" catalog="system" id="I77-pS-i66">
                                             <connections>
-                                                <segue destination="BYZ-38-t0r" kind="presentation" id="X8w-aa-OqB"/>
+                                                <action selector="onBackTap:" destination="hz6-93-m8m" id="NeF-0G-4SW"/>
                                             </connections>
                                         </barButtonItem>
                                         <rightBarButtonItems>

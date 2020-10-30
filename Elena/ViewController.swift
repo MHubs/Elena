@@ -76,6 +76,12 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         performSegue(withIdentifier: "toSettings", sender: self)
     }
     
+    @IBAction func onSavedTap(_ sender: UIButton) {
+        performSegue(withIdentifier: "toSavedRoutes", sender: self)
+    }
+    
+    
+    
     // Update map with current location data
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
