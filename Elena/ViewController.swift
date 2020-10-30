@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 private extension MKMapView {
   func centerToLocation(
@@ -21,7 +22,7 @@ private extension MKMapView {
   }
 }
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate{
 
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var settingsButton: UIButton!
@@ -34,17 +35,36 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var inclineLabel: UILabel!
     @IBOutlet weak var elevationGainLabel: UILabel!
     
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+    
+        // Make the buttons round
         settingsButton.layer.cornerRadius = settingsButton.frame.width / 2
         savedRoutesButton.layer.cornerRadius = savedRoutesButton.frame.width / 2
         
+        // Make the bottom rounded
         bottomShelf.layer.cornerRadius = bottomShelf.frame.width / 9
         
-        mapView.centerToLocation(CLLocation(latitude: 42.3732, longitude: -72.5199))
+        // initialize location services
+
+        // Ask for permission for use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        } else {
+            // User denied us and we're screwed
+        }
+        
+        // Amherst Lat/long: 42.3732, -72.5199
+        //mapView.centerToLocation(CLLocation(latitude: 42.3732, longitude: -72.5199))
+        
+        
         
         searchField.returnKeyType = .route
         searchField.delegate = self
@@ -55,7 +75,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         performSegue(withIdentifier: "toSettings", sender: self)
     }
     
-    
+    // Update map with current location data
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        mapView.centerToLocation(CLLocation(latitude: locValue.latitude, longitude: locValue.longitude))
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Called when route button is pressed
