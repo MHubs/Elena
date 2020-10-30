@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Contacts
 
 private extension MKMapView {
     func centerToLocation(
@@ -110,25 +111,34 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         
         
         // An example of how to use the getStreet method to get location names from lat/long
-        getStreet(from: currentLocation, completion: {
+        getStreet(from: destLocation, completion: {
             placemarks, error in
             
             guard let placeMark = placemarks?.first else { return }
             
+            
+            // Full Address
+            if let postalAddress = placeMark.postalAddress {
+                let formatter = CNPostalAddressFormatter()
+                let addressString = formatter.string(from: postalAddress)
+                print(addressString)
+            }
+            
+            
             // Location name
-            if let locationName = placeMark.location {
+            if let locationName = placeMark.name {
                 print(locationName)
             }
-            // Street address
+            // Street name (use subThroughfare for street number)
             if let street = placeMark.thoroughfare {
                 print(street)
             }
             // City
-            if let city = placeMark.subAdministrativeArea {
+            if let city = placeMark.locality {
                 print(city)
             }
             // Zip code
-            if let zip = placeMark.isoCountryCode {
+            if let zip = placeMark.postalCode {
                 print(zip)
             }
             // Country
