@@ -23,7 +23,15 @@ private extension MKMapView {
     }
 }
 
-class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate{
+extension Double {
+    /// Rounds the double to decimal places value
+    func rounded(toPlaces places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+}
+
+class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate, MKMapViewDelegate{
     
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var settingsButton: UIButton!
@@ -79,6 +87,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         
         searchField.returnKeyType = .route
         searchField.delegate = self
+        
+        mapView.delegate = self
     }
     
     @objc func handleMapPress(_ gestureReconizer: UITapGestureRecognizer) {
@@ -107,8 +117,11 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     
     @IBAction func onGoTap(_ sender: UIButton) {
         
-        // Do validation check on destination
+        mapView.removeOverlays(mapView.overlays)
         
+        // Do validation check on destination
+        var destLoc = ""
+        var startLoc = ""
         
         // An example of how to use the getStreet method to get location names from lat/long
         getStreet(from: destLocation, completion: {
@@ -119,51 +132,64 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             
             // Full Address
             if let postalAddress = placeMark.postalAddress {
-                let formatter = CNPostalAddressFormatter()
-                let addressString = formatter.string(from: postalAddress)
-                print(addressString)
+                let streets = postalAddress.street.split(separator: "–", maxSplits: 1, omittingEmptySubsequences: false)
+                print(postalAddress)
+                if streets.count > 1{
+                    let removedHyphen = streets[1].split(separator: " ", maxSplits: 1, omittingEmptySubsequences: false)
+                    destLoc = streets[0] + " " + removedHyphen[1] + ", " + postalAddress.city + ", " + postalAddress.state
+                } else {
+                    destLoc = streets[0] + ", " + postalAddress.city + ", " + postalAddress.state
+                }
+                print(destLoc)
+                
+                if !startLoc.isEmpty {
+                    self.sendToBackend(starting: startLoc, ending: destLoc)
+                }
             }
             
             
-            // Location name
-            if let locationName = placeMark.name {
-                print(locationName)
-            }
-            // Street name (use subThroughfare for street number)
-            if let street = placeMark.thoroughfare {
-                print(street)
-            }
-            // City
-            if let city = placeMark.locality {
-                print(city)
-            }
-            // Zip code
-            if let zip = placeMark.postalCode {
-                print(zip)
-            }
-            // Country
-            if let country = placeMark.country {
-                print(country)
-            }
             
             
         })
         
-        sendToBackend()
+        getStreet(from: currentLocation, completion: {
+            placemarks, error in
+            
+            guard let placeMark = placemarks?.first else { return }
+            
+            
+            // Full Address
+            if let postalAddress = placeMark.postalAddress {
+                let streets = postalAddress.street.split(separator: "–", maxSplits: 1, omittingEmptySubsequences: false)
+                if streets.count > 1{
+                    let removedHyphen = streets[1].split(separator: " ", maxSplits: 1, omittingEmptySubsequences: false)
+                    startLoc = streets[0] + " " + removedHyphen[1] + ", " + postalAddress.city + ", " + postalAddress.state
+                } else {
+                    startLoc = streets[0] + ", " + postalAddress.city + ", " + postalAddress.state
+                }
+                print(startLoc)
+                
+                if !destLoc.isEmpty {
+                    self.sendToBackend(starting: startLoc, ending: destLoc)
+                }
+            }
+
+        })
+        
     }
     
     
-    func sendToBackend() {
+    func sendToBackend(starting: String, ending: String) {
         
-        let requestURL = "http://something.com/route"
+        let requestURL = "http://165.227.197.221:5000/route"
         
         let Url = String(format: requestURL)
         guard let serviceUrl = URL(string: Url) else { return }
         let parameters: [String: Any] = [
-            "start": "",
-            "dest": "",
+            "start": starting,
+            "dest": ending,
             "goal": "Minimize Elevation Gain",
-            "limit": "0",
+            "limit": "110",
             "algorithm": "AStar",
             "method": "drive"
         ]
@@ -187,6 +213,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                     // Success!
                     
                     print(json)
+                    self.displayRoute(json: json)
+                    
                 } catch {
                     
                     // Error
@@ -196,6 +224,64 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             }
         }.resume()
         
+    }
+    
+    func displayRoute(json: Any) {
+        
+        if let dictionary = json as? [String: Any] {
+            
+            // 2D array of strings. path[0] is a [string] of ['long','lat']
+            let path: [[Double]] = dictionary["path"] as! [[Double]]
+            
+            // 2D array of string and dictionary. pathData[0] is a dictionary of string:any
+            let pathData: [[String:Any]] = dictionary["path_data"] as! [[String : Any]]
+                        
+            var coords = [currentLocation.coordinate]
+            
+            var totalDistance = 0.0
+            var elevationGain = 0
+            
+            for node in path {
+                
+                let long = node[0]
+                let lat = node[1]
+                
+                let curr = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                
+                coords.append(curr)
+                                
+            }
+            
+            for nodeData in pathData {
+                
+                totalDistance += nodeData["length"] as! Double
+                
+            }
+                        
+            DispatchQueue.main.async {
+                let polyline = MKPolyline(coordinates: coords, count: coords.count)
+                self.mapView.addOverlay(polyline, level: .aboveRoads)
+            
+                let rect = polyline.boundingMapRect
+                
+                let newRect = MKMapRect(x: rect.minX - 50, y: rect.minY - 50, width: rect.width + 100, height: rect.height + 100)
+                
+                //self.mapView.setRegion(MKCoordinateRegion(newRect), animated: true)
+                
+                
+                
+                self.distanceLabel.text = String((totalDistance / 1000).rounded(toPlaces: 3)) + " km"
+            }
+        }
+        
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor.red
+        renderer.lineWidth = 4.0
+        
+        return renderer
     }
     
     
