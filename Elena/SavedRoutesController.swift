@@ -6,9 +6,18 @@
 //
 
 import UIKit
+import CoreLocation
 
 class SavedRoutesController: UIViewController {
-
+    
+    let locationManager = CLLocationManager()
+    
+    struct Entry: Identifiable {
+        var id = UUID()
+        var name: String
+        var location: CLLocation
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +28,11 @@ class SavedRoutesController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func addEntry(_ sender: Any) {
+    }
+    
+    @IBAction func editList(_ sender: Any) {
+    }
     /*
     // MARK: - Navigation
 
