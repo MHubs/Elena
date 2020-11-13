@@ -15,8 +15,8 @@ class SavedRoutesController: UIViewController, UITableViewDelegate, UITableViewD
     
     let locationManager = CLLocationManager()
     
+    //table view var
     @IBOutlet weak var tableView: UITableView!
-    
     
     struct Entry: Identifiable {
         var id = UUID()
