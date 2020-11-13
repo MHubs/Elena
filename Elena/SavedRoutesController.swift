@@ -8,21 +8,39 @@
 import UIKit
 import CoreLocation
 
+class AddressCell: UITableViewCell {
+    
+}
 
+extension SavedRoutesController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("you tapped me")
+    }
+}
 
+//handles where the cell data comes from and how it is viewed
+extension SavedRoutesController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    //sets info for each cell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        cell.textLabel?.text = "Hello World"
+        
+        return cell
+    }
+}
+    
 
-class SavedRoutesController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class SavedRoutesController: UIViewController {
     
     let locationManager = CLLocationManager()
     
     //table view var
     @IBOutlet weak var tableView: UITableView!
-    
-    struct Entry: Identifiable {
-        var id = UUID()
-        var name: String
-        var location: CLLocation
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,23 +55,7 @@ class SavedRoutesController: UIViewController, UITableViewDelegate, UITableViewD
         self.dismiss(animated: true, completion: nil)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("you tapped me")
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    //sets info for each cell
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        cell.textLabel?.text = "Hello World"
-        
-        return cell
-    }
-    
+    //toolbar actions
     @IBAction func addEntry(_ sender: Any) {
     }
     
