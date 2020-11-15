@@ -31,12 +31,99 @@ extension Double {
     }
 }
 
-extension UIView {
+protocol PropertyStoring {
+    associatedtype T
+    func getAssociatedObject(_ key: UnsafeRawPointer!, defaultValue: T) -> T
+}
+extension PropertyStoring {
+    func getAssociatedObject(_ key: UnsafeRawPointer!, defaultValue: T) -> T {
+        guard let value = objc_getAssociatedObject(self, key) as? T else {
+            return defaultValue
+        }
+        return value
+    }
+}
+
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(rgb: Int) {
+        self.init(
+            red: (rgb >> 16) & 0xFF,
+            green: (rgb >> 8) & 0xFF,
+            blue: rgb & 0xFF
+        )
+    }
+}
+
+extension UIView: PropertyStoring {
    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
+    }
+    
+    typealias T = UIView
+    private struct CustomProperties {
+        static var toggleState = UIView()
+    }
+    
+    var container: UIView {
+        get {
+            return getAssociatedObject(&CustomProperties.toggleState, defaultValue: CustomProperties.toggleState)
+        }
+        set {
+            return objc_setAssociatedObject(self, &CustomProperties.toggleState, newValue, .OBJC_ASSOCIATION_RETAIN)
+        }
+    }
+    
+    func showActivityIndicatory() {
+        if container != nil {
+            container.removeFromSuperview()
+        }
+        container = UIView()
+        container.frame = frame
+        container.center = center
+        
+        var color: UIColor
+        
+        if #available(iOS 12.0, *) {
+            if traitCollection.userInterfaceStyle == .dark {
+                color = UIColor(rgb: 0x000000)
+            } else {
+                color = UIColor(rgb: 0xffffff)
+            }
+        } else {
+            color = UIColor(rgb: 0xffffff)
+        }
+        
+        
+        container.backgroundColor = color.withAlphaComponent(0.3)
+        
+        let loadingView: UIView = UIView()
+        loadingView.frame = CGRect(x:0, y:0, width:80, height:80)
+        loadingView.center = center
+        loadingView.backgroundColor = UIColor(rgb: 0x444444).withAlphaComponent(0.7)
+        loadingView.clipsToBounds = true
+        loadingView.layer.cornerRadius = 10
+        
+        let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+        actInd.frame = CGRect(x:0.0, y:0.0, width:40.0, height:40.0);
+        actInd.style =
+            UIActivityIndicatorView.Style.large
+        actInd.center = CGPoint(x:loadingView.frame.size.width / 2,
+                                y:loadingView.frame.size.height / 2);
+        loadingView.addSubview(actInd)
+        container.addSubview(loadingView)
+        addSubview(container)
+        actInd.startAnimating()
     }
 }
 
@@ -78,6 +165,17 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        if #available(iOS 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                goButton.tintColor = .white
+            } else {
+                goButton.tintColor = .black
+            }
+
+        } else {
+            // Fallback on earlier versions
+        }
+        
         //Initialize Settings
         Settings()
         
@@ -118,6 +216,23 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
            
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                goButton.tintColor = .white
+            } else {
+                goButton.tintColor = .black
+            }
+
+        } else {
+            // Fallback on earlier versions
+        }
+
+        
     }
     
     @objc func handleMapPress(_ gestureReconizer: UITapGestureRecognizer) {
@@ -176,6 +291,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     }
     
     @IBAction func onGoTap(_ sender: UIButton) {
+        
+        self.view.showActivityIndicatory()
         
         mapView.removeOverlays(mapView.overlays)
         
@@ -251,7 +368,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             "goal": Settings.instance.elevationGain,
             "limit": String(Settings.instance.tolerance),
             "algorithm": "AStar",
-            "method": "drive"
+            "method": "walk"
         ]
         var request = URLRequest(url: serviceUrl)
         request.httpMethod = "POST"
@@ -280,6 +397,9 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                     // Error
                     
                     print(error)
+                    DispatchQueue.main.async {
+                        self.displayError(error.localizedDescription)
+                    }
                 }
             }
         }.resume()
@@ -290,6 +410,16 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         
         if let dictionary = json as? [String: Any] {
             
+            if dictionary["path"] == nil {
+                
+                DispatchQueue.main.async {
+                    self.displayError(dictionary["error"] as! String)
+                }
+                
+                
+                return
+            }
+            
             // 2D array of strings. path[0] is a [string] of ['long','lat']
             let path: [[Double]] = dictionary["path"] as! [[Double]]
             
@@ -299,9 +429,13 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
             var coords = [currentLocation.coordinate]
             
             var totalDistance = 0.0
-            var elevationGain = 0
+            var averageIncline = 0.0
+            var elevationGain = 0.0
             
-            for node in path {
+            for i in 0...path.count - 1 {
+                
+                let node = path[i]
+                let nodeData = pathData[i]
                 
                 let long = node[0]
                 let lat = node[1]
@@ -309,14 +443,19 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                 let curr = CLLocationCoordinate2D(latitude: lat, longitude: long)
                 
                 coords.append(curr)
-                                
-            }
-            
-            for nodeData in pathData {
                 
                 totalDistance += nodeData["length"] as! Double
                 
+                if i != path.count - 1 {
+                    averageIncline += nodeData["grade"] as! Double
+                    if ((pathData[i+1]["elevation"] as! Double) - (nodeData["elevation"] as! Double) > 0) {
+                        elevationGain += (pathData[i+1]["elevation"] as! Double) - (nodeData["elevation"] as! Double)
+                    }
+                }
+                                
             }
+            
+            averageIncline /= Double(path.count)
                         
             DispatchQueue.main.async {
                 let polyline = MKPolyline(coordinates: coords, count: coords.count)
@@ -328,15 +467,24 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                 
                 //self.mapView.setRegion(MKCoordinateRegion(newRect), animated: true)
                 
-                
-                
-                self.distanceLabel.text = String((totalDistance / 1000).rounded(toPlaces: 3)) + " km"
+                if (Settings.instance.units) {
+                    self.distanceLabel.text = String((totalDistance / 1000).rounded(toPlaces: 3)) + " km"
+                    self.elevationGainLabel.text = String(elevationGain) + " m"
+                    self.inclineLabel.text = String((averageIncline * 10).rounded(toPlaces: 3)) + " meters per 10 meters"
+                }
+                else {
+                    self.distanceLabel.text = String((totalDistance / 1609).rounded(toPlaces: 3)) + " mi"
+                    self.elevationGainLabel.text = String((elevationGain * 3.281).rounded(toPlaces: 2)) + " ft"
+                    self.inclineLabel.text = String((averageIncline * 10).rounded(toPlaces: 3)) + " ft per 10 ft"
+                }
                 
                 self.distanceTagLabel.text = "Distance"
                 self.inclineTagLabel.text = "Incline"
                 self.elevationTagLabel.text = "Elevation Gain"
                 
                 self.routeStatisticsLabel.text = "Route to " + self.destLoc
+                
+                self.view.container.removeFromSuperview()
             }
         }
         
@@ -366,6 +514,24 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         
         
         
+    }
+    
+    func displayError(_ error: String) {
+        self.distanceLabel.isUserInteractionEnabled = false
+        self.inclineLabel.isUserInteractionEnabled = false
+        self.elevationGainLabel.isUserInteractionEnabled = false
+        
+        self.distanceLabel.text = " "
+        self.inclineLabel.text = error
+        self.elevationGainLabel.text = " "
+        
+        self.distanceTagLabel.text = " "
+        self.inclineTagLabel.text = " "
+        self.elevationTagLabel.text = " "
+        
+        self.routeStatisticsLabel.text = "Sorry :/"
+        
+        self.view.container.removeFromSuperview()
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
