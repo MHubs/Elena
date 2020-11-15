@@ -17,6 +17,7 @@
 		D06B0D0D2533A18C0090AA23 /* ElenaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B0D0C2533A18C0090AA23 /* ElenaTests.swift */; };
 		D06B0D182533A18C0090AA23 /* ElenaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06B0D172533A18C0090AA23 /* ElenaUITests.swift */; };
 		D08A0801253692E7002BA966 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08A0800253692E7002BA966 /* SettingsController.swift */; };
+		D0E36DA225617F720059F45C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E36DA125617F720059F45C /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		D06B0D172533A18C0090AA23 /* ElenaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElenaUITests.swift; sourceTree = "<group>"; };
 		D06B0D192533A18C0090AA23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08A0800253692E7002BA966 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		D0E36DA125617F720059F45C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				D06B0D032533A18B0090AA23 /* Info.plist */,
 				D08A0800253692E7002BA966 /* SettingsController.swift */,
 				D03618C1254C9492006E0704 /* SavedRoutesController.swift */,
+				D0E36DA125617F720059F45C /* Settings.swift */,
 			);
 			path = Elena;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0E36DA225617F720059F45C /* Settings.swift in Sources */,
 				D08A0801253692E7002BA966 /* SettingsController.swift in Sources */,
 				D06B0CFA2533A1890090AA23 /* ViewController.swift in Sources */,
 				D03618C2254C9492006E0704 /* SavedRoutesController.swift in Sources */,

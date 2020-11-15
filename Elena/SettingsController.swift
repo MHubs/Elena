@@ -9,6 +9,8 @@ import UIKit
 
 class SettingsController: UIViewController {
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,6 +19,22 @@ class SettingsController: UIViewController {
     
     @IBAction func onBackTap(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func onUnitSwitch(_ sender: UISwitch) {
+        Settings.instance.units = sender.isOn
+    }
+    
+    @IBAction func onElevationSwitch(_ sender: Any) {
+        if (sender as! UISwitch).isOn {
+            Settings.instance.elevationGain = "Maximize Elevation Gain"
+        } else {
+            Settings.instance.elevationGain = "Minimize Elevation Gain"
+        }
+    }
+    
+    @IBAction func onToleranceChange(_ sender: UISlider) {
+        Settings.instance.tolerance = Int(sender.value)
     }
     
     /*
