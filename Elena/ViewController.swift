@@ -165,6 +165,17 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        if #available(iOS 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                goButton.tintColor = .white
+            } else {
+                goButton.tintColor = .black
+            }
+
+        } else {
+            // Fallback on earlier versions
+        }
+        
         //Initialize Settings
         Settings()
         
@@ -205,6 +216,23 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
            
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                goButton.tintColor = .white
+            } else {
+                goButton.tintColor = .black
+            }
+
+        } else {
+            // Fallback on earlier versions
+        }
+
+        
     }
     
     @objc func handleMapPress(_ gestureReconizer: UITapGestureRecognizer) {
@@ -369,6 +397,9 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                     // Error
                     
                     print(error)
+                    DispatchQueue.main.async {
+                        self.displayError(error.localizedDescription)
+                    }
                 }
             }
         }.resume()
@@ -378,6 +409,16 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     func displayRoute(json: Any) {
         
         if let dictionary = json as? [String: Any] {
+            
+            if dictionary["path"] == nil {
+                
+                DispatchQueue.main.async {
+                    self.displayError(dictionary["error"] as! String)
+                }
+                
+                
+                return
+            }
             
             // 2D array of strings. path[0] is a [string] of ['long','lat']
             let path: [[Double]] = dictionary["path"] as! [[Double]]
@@ -468,6 +509,24 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         
         
         
+    }
+    
+    func displayError(_ error: String) {
+        self.distanceLabel.isUserInteractionEnabled = false
+        self.inclineLabel.isUserInteractionEnabled = false
+        self.elevationGainLabel.isUserInteractionEnabled = false
+        
+        self.distanceLabel.text = " "
+        self.inclineLabel.text = error
+        self.elevationGainLabel.text = " "
+        
+        self.distanceTagLabel.text = " "
+        self.inclineTagLabel.text = " "
+        self.elevationTagLabel.text = " "
+        
+        self.routeStatisticsLabel.text = "Sorry :/"
+        
+        self.view.container.removeFromSuperview()
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

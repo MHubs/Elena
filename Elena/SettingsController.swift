@@ -9,12 +9,18 @@ import UIKit
 
 class SettingsController: UIViewController {
 
+    @IBOutlet weak var unitsSwitch: UISwitch!
+    @IBOutlet weak var elevationSwitch: UISwitch!
+    @IBOutlet weak var toleranceSlider: UISlider!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        unitsSwitch.isOn = Settings.instance.units
+        elevationSwitch.isOn = Settings.instance.elevationGain == "Maximize Elevation Gain"
+        toleranceSlider.value = Float(Settings.instance.tolerance)
     }
     
     @IBAction func onBackTap(_ sender: UIBarButtonItem) {

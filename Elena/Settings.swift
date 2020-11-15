@@ -12,7 +12,7 @@ class Settings {
     public static var instance: Settings!
     
     public var tolerance: Int = 120
-    public var units: Bool = true //km = true, miles = false
+    public var units: Bool = false //km = false, miles = true
     public var elevationGain: String = "Maximize Elevation Gain"
     
     init () {
