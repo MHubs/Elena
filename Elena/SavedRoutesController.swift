@@ -6,12 +6,8 @@
 //
 
 import UIKit
-import CoreLocation
 
-class AddressCell: UITableViewCell {
-    
-}
-
+//action that occurs on table cell tap
 extension SavedRoutesController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("you tapped me")
@@ -20,16 +16,28 @@ extension SavedRoutesController: UITableViewDelegate {
 
 //handles where the cell data comes from and how it is viewed
 extension SavedRoutesController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 2
     }
     
     //sets info for each cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cellIdentifier = "cell"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SavedRoutesTableViewCell else{
+            fatalError("Could not dequeue cell")
+        }
         
-        cell.textLabel?.text = "Hello World"
+        /*let route = savedRoutesList[indexPath.row]
         
+        cell.titleLabel.text = route.title
+        cell.addressLabel.text = route.addressString
+        */
+        cell.titleLabel.text = "Home"
+        cell.addressLabel.text = "12 N East St"
         return cell
     }
 }
@@ -37,7 +45,8 @@ extension SavedRoutesController: UITableViewDataSource {
 
 class SavedRoutesController: UIViewController {
     
-    let locationManager = CLLocationManager()
+    //MARK: Properties
+    var savedRoutesList = [SavedRoutes]()
     
     //table view var
     @IBOutlet weak var tableView: UITableView!
@@ -47,8 +56,8 @@ class SavedRoutesController: UIViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-        
         // Do any additional setup after loading the view.
+        loadSampleList()
     }
     
     @IBAction func onBackTap(_ sender: Any) {
@@ -60,6 +69,19 @@ class SavedRoutesController: UIViewController {
     }
     
     @IBAction func editList(_ sender: Any) {
+    }
+    
+    //MARK: Private Methods
+    private func loadSampleList(){
+        guard let loc1 = SavedRoutes(title: "Home", addressString: "12 N East St, Amherst MA 01002", addressLocation: 0) else {
+            fatalError("Unable to instantiate loc1")
+        }
+        guard let loc2 = SavedRoutes(title: "KS", addressString: "778 N Pleasant St, Amherst MA 01002", addressLocation: 1) else {
+            fatalError("Unable to instantiate loc2")
+        }
+        
+        savedRoutesList += [loc1, loc2]
+        
     }
     /*
     // MARK: - Navigation
