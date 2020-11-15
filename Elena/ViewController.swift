@@ -401,7 +401,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                     }
                 }
             } else {
-                print(error)
                 DispatchQueue.main.async {
                     self.displayError(error!.localizedDescription)
                 }
