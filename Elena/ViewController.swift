@@ -361,7 +361,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         let requestURL = "http://165.227.197.221:5000/route"
         
         let Url = String(format: requestURL)
-        guard let serviceUrl = URL(string: Url) else { return }
+        guard let serviceUrl = URL(string: Url) else {return }
         let parameters: [String: Any] = [
             "start": starting,
             "dest": ending,
@@ -395,11 +395,15 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                 } catch {
                     
                     // Error
-                    
                     print(error)
                     DispatchQueue.main.async {
                         self.displayError(error.localizedDescription)
                     }
+                }
+            } else {
+                print(error)
+                DispatchQueue.main.async {
+                    self.displayError(error!.localizedDescription)
                 }
             }
         }.resume()
