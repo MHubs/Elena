@@ -14,22 +14,30 @@ class SavedRoutes {
     //MARK: Properties
     var title: String
     var addressString: String
-    var addressLocation: Int
+    var addressLocation: MKPlacemark?
+    
+    let locationManager = CLLocationManager()
+    let geocoder = CLGeocoder()
     
     //MARK: Initialization
-    init?(title: String, addressString: String, addressLocation: Int) {
+    init?(title: String, addressString: String) {
         //title must not be empty
         guard !title.isEmpty else{
             return nil
         }
-        //address string must not be empty
-        guard !addressString.isEmpty else{
-            return nil
-        }
         self.title = title
         self.addressString = addressString
-        self.addressLocation = addressLocation
+        self.addressLocation = geocoder.geocodeAddressString(addressString) { (placemarks, error) in
+            guard
+                let placemarks = placemarks,
+                let location = placemarks.first?.location
+            else {
+                // handle no location found
+                return
+            }
+
+            // Use your location
+        }
     }
-    
     
 }

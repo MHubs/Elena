@@ -27,8 +27,8 @@ extension SavedRoutesController: UITableViewDataSource {
     //sets info for each cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "cell"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SavedRoutesTableViewCell else{
-            fatalError("Could not dequeue cell")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SavedRoutesTableViewCell  else {
+            fatalError("The dequeued cell is not an instance of SavedRoutesTableViewCell.")
         }
         
         /*let route = savedRoutesList[indexPath.row]
@@ -50,6 +50,7 @@ class SavedRoutesController: UIViewController {
     
     //table view var
     @IBOutlet weak var tableView: UITableView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,10 +74,10 @@ class SavedRoutesController: UIViewController {
     
     //MARK: Private Methods
     private func loadSampleList(){
-        guard let loc1 = SavedRoutes(title: "Home", addressString: "12 N East St, Amherst MA 01002", addressLocation: 0) else {
+        guard let loc1 = SavedRoutes(title: "Home", addressString: "12 N East St, Amherst MA 01002") else {
             fatalError("Unable to instantiate loc1")
         }
-        guard let loc2 = SavedRoutes(title: "KS", addressString: "778 N Pleasant St, Amherst MA 01002", addressLocation: 1) else {
+        guard let loc2 = SavedRoutes(title: "KS", addressString: "778 N Pleasant St, Amherst MA 01002") else {
             fatalError("Unable to instantiate loc2")
         }
         
