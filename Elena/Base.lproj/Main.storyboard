@@ -261,18 +261,11 @@
                                                 <action selector="onBackTap:" destination="hz6-93-m8m" id="NeF-0G-4SW"/>
                                             </connections>
                                         </barButtonItem>
-                                        <rightBarButtonItems>
-                                            <barButtonItem title="Add" image="square.and.pencil" catalog="system" id="Ii7-45-Akg">
-                                                <connections>
-                                                    <action selector="addEntry:" destination="hz6-93-m8m" id="S6Y-kc-tSa"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem title="Edit" id="tIf-gF-UPc">
-                                                <connections>
-                                                    <action selector="editList:" destination="hz6-93-m8m" id="8NW-9J-yly"/>
-                                                </connections>
-                                            </barButtonItem>
-                                        </rightBarButtonItems>
+                                        <barButtonItem key="rightBarButtonItem" title="Add" image="square.and.pencil" catalog="system" id="Ii7-45-Akg">
+                                            <connections>
+                                                <action selector="addEntry:" destination="hz6-93-m8m" id="S6Y-kc-tSa"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

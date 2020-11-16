@@ -719,11 +719,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     }
     
     @IBAction func onSaveRoute(_ sender: Any) {
-        let route = SavedRoutes(location: destLocation)
-        
-        Settings.instance.savedRoutesList += [route]
-        
-        Settings.instance.saveRoutes()
+        _ = SavedRoutes(location: destLocation)
         
         let alertController = UIAlertController(title: "Saved Routes", message: "Successfully saved route!", preferredStyle: .alert)
         
