@@ -64,10 +64,20 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3K-bG-OXK">
+                                                <rect key="frame" x="23.5" y="126" width="91" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <state key="normal" title="Save Route"/>
+                                                <connections>
+                                                    <action selector="onSaveRoute:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DSF-85-hoN"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="IsU-3Y-vfB" firstAttribute="width" secondItem="4OD-MQ-0mC" secondAttribute="width" multiplier="0.9" id="1Mg-43-v9E"/>
+                                            <constraint firstItem="M3K-bG-OXK" firstAttribute="centerX" secondItem="4OD-MQ-0mC" secondAttribute="centerX" id="5DV-lF-FTA"/>
+                                            <constraint firstItem="OZ8-Sh-kz6" firstAttribute="bottom" secondItem="M3K-bG-OXK" secondAttribute="top" id="E69-L2-SIg"/>
                                             <constraint firstItem="OZ8-Sh-kz6" firstAttribute="centerX" secondItem="4OD-MQ-0mC" secondAttribute="centerX" id="K5s-zn-9dl"/>
                                             <constraint firstItem="IsU-3Y-vfB" firstAttribute="centerX" secondItem="4OD-MQ-0mC" secondAttribute="centerX" id="lRK-Qr-M8L"/>
                                             <constraint firstItem="IsU-3Y-vfB" firstAttribute="height" secondItem="4OD-MQ-0mC" secondAttribute="height" multiplier="0.5" id="z6J-4k-vYU"/>
@@ -222,6 +232,7 @@
                         <outlet property="inclineTagLabel" destination="OZ8-Sh-kz6" id="qkg-fG-0gF"/>
                         <outlet property="mapView" destination="1Bs-uB-QEI" id="gog-07-ctO"/>
                         <outlet property="routeStatisticsLabel" destination="Omf-Ss-Gxa" id="J7C-YJ-Izb"/>
+                        <outlet property="saveRouteButton" destination="M3K-bG-OXK" id="lNd-J4-4iP"/>
                         <outlet property="savedRoutesButton" destination="IXj-i6-uhF" id="YtA-zS-diY"/>
                         <outlet property="searchField" destination="6Wr-ts-2i1" id="lJe-oT-PsJ"/>
                         <outlet property="settingsButton" destination="Woo-sM-NRo" id="TDN-xs-ES1"/>

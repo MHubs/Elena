@@ -6,11 +6,32 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
 //action that occurs on table cell tap
 extension SavedRoutesController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("you tapped me")
+        let route = Settings.instance.savedRoutesList[indexPath.row]
+                
+        let viewController = UIApplication.shared.windows[0].rootViewController as? ViewController
+        
+        viewController?.destLocation = route.addressLocation.location!
+        viewController?.destLoc = route.addressString
+        
+        viewController?.mapView.removeAnnotations((viewController?.mapView.annotations)!)
+        
+        // Add annotation:
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = route.addressLocation.location!.coordinate
+        viewController?.mapView.addAnnotation(annotation)
+        
+        viewController?.displayPrelimDestination(dest: route.addressString, placemark: route.addressLocation)
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        
+        
     }
 }
 
@@ -21,7 +42,7 @@ extension SavedRoutesController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return Settings.instance.savedRoutesList.count
     }
     
     //sets info for each cell
@@ -31,13 +52,11 @@ extension SavedRoutesController: UITableViewDataSource {
             fatalError("The dequeued cell is not an instance of SavedRoutesTableViewCell.")
         }
         
-        /*let route = savedRoutesList[indexPath.row]
+        let route = Settings.instance.savedRoutesList[indexPath.row]
         
         cell.titleLabel.text = route.title
         cell.addressLabel.text = route.addressString
-        */
-        cell.titleLabel.text = "Home"
-        cell.addressLabel.text = "12 N East St"
+
         return cell
     }
 }
@@ -46,7 +65,9 @@ extension SavedRoutesController: UITableViewDataSource {
 class SavedRoutesController: UIViewController {
     
     //MARK: Properties
-    var savedRoutesList = [SavedRoutes]()
+    
+    
+    
     
     //table view var
     @IBOutlet weak var tableView: UITableView!
@@ -58,7 +79,6 @@ class SavedRoutesController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         // Do any additional setup after loading the view.
-        loadSampleList()
     }
     
     @IBAction func onBackTap(_ sender: Any) {
@@ -67,6 +87,19 @@ class SavedRoutesController: UIViewController {
     
     //toolbar actions
     @IBAction func addEntry(_ sender: Any) {
+        _ = SavedRoutes(location: CLLocation(latitude: 42.38954870, longitude: -72.53345997))
+        
+        let alertController = UIAlertController(title: "Saved Routes", message: "Successfully saved route!", preferredStyle: .alert)
+
+        let action1 = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction) in
+            print("You've pressed OK");
+        }
+
+        alertController.addAction(action1)
+
+        self.present(alertController, animated: true, completion: nil)
+        
+        
     }
     
     @IBAction func editList(_ sender: Any) {
@@ -74,16 +107,19 @@ class SavedRoutesController: UIViewController {
     
     //MARK: Private Methods
     private func loadSampleList(){
-        guard let loc1 = SavedRoutes(title: "Home", addressString: "12 N East St, Amherst MA 01002") else {
-            fatalError("Unable to instantiate loc1")
-        }
-        guard let loc2 = SavedRoutes(title: "KS", addressString: "778 N Pleasant St, Amherst MA 01002") else {
-            fatalError("Unable to instantiate loc2")
-        }
+//        guard let loc1 = SavedRoutes(title: "Home", addressString: "12 N East St, Amherst MA 01002") else {
+//            fatalError("Unable to instantiate loc1")
+//        }
+//        guard let loc2 = SavedRoutes(title: "KS", addressString: "778 N Pleasant St, Amherst MA 01002") else {
+//            fatalError("Unable to instantiate loc2")
+//        }
         
-        savedRoutesList += [loc1, loc2]
+//        Settings.instance.savedRoutesList += [loc1, loc2]
         
     }
+    
+    
+    
     /*
     // MARK: - Navigation
 

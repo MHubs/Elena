@@ -134,6 +134,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var savedRoutesButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
+    @IBOutlet weak var saveRouteButton: UIButton!
     
     
     @IBOutlet weak var mapView: MKMapView!
@@ -212,6 +213,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         searchField.delegate = self
         
         mapView.delegate = self
+        
+        saveRouteButton.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -487,6 +490,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
                 
                 self.routeStatisticsLabel.text = "Route to " + self.destLoc
                 
+                self.saveRouteButton.isHidden = false
+                
                 self.view.container.removeFromSuperview()
             }
         }
@@ -514,7 +519,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         } else {
             self.routeStatisticsLabel.text = dest
         }
-        
+        saveRouteButton.isHidden = true
         
         
     }
@@ -533,6 +538,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         self.elevationTagLabel.text = " "
         
         self.routeStatisticsLabel.text = "Sorry :/"
+        
+        saveRouteButton.isHidden = true
         
         self.view.container.removeFromSuperview()
     }
@@ -618,6 +625,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
         self.distanceTagLabel.text = " "
         self.inclineTagLabel.text = " "
         self.elevationTagLabel.text = " "
+        
+        saveRouteButton.isHidden = true
         
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchText
@@ -708,5 +717,24 @@ class ViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDe
  
         
     }
+    
+    @IBAction func onSaveRoute(_ sender: Any) {
+        let route = SavedRoutes(location: destLocation)
+        
+        Settings.instance.savedRoutesList += [route]
+        
+        Settings.instance.saveRoutes()
+        
+        let alertController = UIAlertController(title: "Saved Routes", message: "Successfully saved route!", preferredStyle: .alert)
+        
+        let action1 = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction) in
+            print("You've pressed OK");
+        }
+
+        alertController.addAction(action1)
+                
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
